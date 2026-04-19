@@ -1,0 +1,27 @@
+#Виртуальное окружение
+.venv/
+venv/
+
+#Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+#База данных (локальная)
+*.db
+*.sqlite3
+movies.db
+
+#Переменные окружения (там пароли!)
+.env
+
+#Логи
+*.log
+
+#IDE
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -1,0 +1,28 @@
+{
+  "project": "КиноДневник",
+  "author": "Седухин Кирилл",
+  "group": "204б",
+  "university": "Московский Технологический Институт",
+  "course": "Базы данных",
+  "teacher": "А. Красильников",
+  "description": "Персональное веб-приложение для учета и анализа просмотренных фильмов",
+  "tech_stack": {
+    "backend_core": "Flask (Python)",
+    "backend_auth": "FastAPI (Python)",
+    "database": "PostgreSQL 18",
+    "frontend": "HTML5 + Bootstrap 5 + Chart.js"
+  },
+  "features": [
+    "CRUD операций с фильмами",
+    "Поиск с фильтрацией и пагинацией",
+    "JWT-авторизация",
+    "Дашборд с аналитикой",
+    "Микросервисная архитектура"
+  ],
+  "endpoints": {
+    "core": "http://localhost:5000",
+    "auth": "http://localhost:8000"
+  },
+  "version": "1.0",
+  "date": "2024"
+}
