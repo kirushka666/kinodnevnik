@@ -1,0 +1,6 @@
+Flask
+PyJWT
+requests
+python-dotenv
+bcrypt
+psycopg2-binary

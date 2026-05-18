@@ -84,7 +84,6 @@ async def api_about():
         }
 
 #АВТОРИЗАЦИЯ
-
 @app.post('/api/login')
 async def login(data: LoginRequest):
     """
@@ -103,7 +102,6 @@ async def login(data: LoginRequest):
 
     # Если неверные данные
     raise HTTPException(status_code=401, detail="Неверный логин или пароль")
-
 
 @app.post('/api/verify')
 async def verify_token_endpoint(data: TokenRequest):
@@ -147,8 +145,6 @@ async def refresh_token(username: str, authorization: str = Header(None)):
         "token": new_token,
         "message": "Token refreshed successfully"
     }
-
-
 #HEALTH CHECK
 @app.get('/health')
 async def health():
@@ -158,8 +154,6 @@ async def health():
         "service": "auth-service",
         "timestamp": datetime.utcnow().isoformat()
     }
-
-
 #ЗАПУСК
 # Запуск: uvicorn main:app --reload --port 8000
 # В терминале: cd auth-service && uvicorn main:app --reload --port 8000
