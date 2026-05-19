@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h1>Статистика</h1>
+<p>Фильмов: {{ stats.total_movies }}</p>
+<p>Средняя оценка: {{ stats.avg_rating }}</p>
+<canvas id="genreChart"></canvas>
+<script>
+new Chart(document.getElementById('genreChart'), {
+type: 'pie',
+data: {
+labels: {{ genre_labels|tojson }},
+datasets: [{data: {{ genre_data|tojson }}]
+}
+});
+</script>
+</body>
+</html>
