@@ -1,22 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Dashboard</title>
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-box">
+    <h2>📊 Статистика проекта</h2>
+    <div class="row mt-4 text-center">
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h5>Всего фильмов</h5>
+                <h3 class="text-primary">{{ stats.total_movies }}</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h5>Средняя оценка</h5>
+                <h3 class="text-primary">{{ "%.1f"|format(stats.avg_rating or 0) }}</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h5>Жанров</h5>
+                <h3 class="text-primary">{{ stats.genres_count }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <canvas id="genreChart" height="100"></canvas>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-<h1>Статистика</h1>
-<p>Фильмов: {{ stats.total_movies }}</p>
-<p>Средняя оценка: {{ stats.avg_rating }}</p>
-<canvas id="genreChart"></canvas>
 <script>
-new Chart(document.getElementById('genreChart'), {
-type: 'pie',
-data: {
-labels: {{ genre_labels|tojson }},
-datasets: [{data: {{ genre_data|tojson }}]
-}
-});
+    new Chart(document.getElementById('genreChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ genre_labels|tojson }},
+            datasets: [{
+                label: 'Фильмов по жанрам',
+                data: {{ genre_data|tojson }},
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        }
+    });
 </script>
-</body>
-</html>
+{% endblock %}

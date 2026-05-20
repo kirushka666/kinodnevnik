@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-box">
+    <h2>👤 Привет, {{ username }}!</h2>
+    <p class="text-muted">Это твой личный кабинет.</p>
+    <hr>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5>Добавлено фильмов</h5>
+                <h2 class="text-primary">{{ movies_count }}</h2>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5>Статус аккаунта</h5>
+                <span class="badge bg-success">Активен</span>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <a href="/dashboard" class="btn btn-outline-primary">Посмотреть общую статистику</a>
+    </div>
+</div>
+{% endblock %}

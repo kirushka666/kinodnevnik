@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-box" style="max-width: 500px; margin: 50px auto;">
+    <h3 class="mb-4">Регистрация</h3>
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Логин</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Пароль</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Повторите пароль</label>
+            <input type="password" name="password2" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Зарегистрироваться</button>
+    </form>
+    <div class="mt-3 text-center">
+        <a href="/login">Уже есть аккаунт? Войти</a>
+    </div>
+</div>
+{% endblock %}
