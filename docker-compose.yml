@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+#База данных PostgreSQL
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: movie_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+#Flask приложение(Core)
+  core-service:
+    build: ./core-service
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+#FastAPI приложение(Auth)
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
