@@ -13,7 +13,6 @@ DB_CONFIG = {
     'password': 'postgres',
     'port': '5432'
 }
-
 #главная страница
 @app.route('/')
 def index():
@@ -130,6 +129,47 @@ def dashboard():
 @app.route('/test')
 def test():
     return {"status": "ok", "service": "core"}
+
+# страница добавления фильма
+@app.route('/add_movie', methods=['GET', 'POST'])
+def add_movie():
+    # если не залогинен - не пускаем
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    # загружаем жанры для выпадающего списка
+    conn = psycopg2.connect(**DB_CONFIG)
+    cur = conn.cursor()
+    cur.execute("SELECT id, name FROM genres ORDER BY name")
+    genres = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    if request.method == 'POST':
+        title = request.form['title']
+        year = request.form['year']
+        genre_id = request.form['genre_id']
+        rating = request.form['rating']
+        review = request.form['review']
+        watch_date = request.form['watch_date']
+
+        try:
+            conn = psycopg2.connect(**DB_CONFIG)
+            cur = conn.cursor()
+            # вставляем фильм и привязываем к текущему юзеру
+            cur.execute("""
+                INSERT INTO movies (title, year, genre_id, user_id, rating, review, watch_date)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (title, year, genre_id, session['user_id'], rating, review, watch_date))
+            conn.commit()
+            cur.close()
+            conn.close()
+            # после сохранения кидаем обратно в кабинет
+            return redirect(url_for('account'))
+        except Exception as e:
+            return render_template('add_movie.html', genres=genres, error='Ошибка при сохранении: ' + str(e))
+
+    return render_template('add_movie.html', genres=genres)
 
 if __name__ == '__main__':
     print("Запускаю Core-сервис на порту 5000...")
